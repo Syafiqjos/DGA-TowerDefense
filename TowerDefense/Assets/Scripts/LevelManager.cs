@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private Tower[] _towerPrefabs;
 
+    private List<Tower> _spawnedTowers = new List<Tower>();
+
     private void Start()
     {
         InstantiateAllTowerUI();
@@ -38,5 +41,11 @@ public class LevelManager : MonoBehaviour
             newTowerUI.SetTowerPrefab(tower);
             newTowerUI.transform.name = tower.name;
         }
+    }
+
+    // Mendaftarkan Tower yang di-spawn agar bisa dikontrol oleh LevelManager
+    public void RegisterSpawnedTower(Tower tower)
+    {
+        _spawnedTowers.Add(tower);
     }
 }

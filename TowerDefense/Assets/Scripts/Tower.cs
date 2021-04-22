@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+    public Vector2? PlacePosition { get; private set; }
+
     // Tower Component
     [SerializeField] private SpriteRenderer _towerPlace;
     [SerializeField] private SpriteRenderer _towerHead;
@@ -17,5 +19,23 @@ public class Tower : MonoBehaviour
     public Sprite GetTowerHeadIcon()
     {
         return _towerHead == null ? null : _towerHead.sprite;
+    }
+
+    public void SetPlacePosition(Vector2? newPosition)
+    {
+        PlacePosition = newPosition;
+    }
+
+    public void LockPlacement()
+    {
+        transform.position = (Vector2)PlacePosition;
+    }
+
+    // Mengubah order in layer pada tower yang sedang di drag
+    public void ToggleOrderInLayer(bool toFront)
+    {
+        int orderInLayer = toFront ? 2 : 0;
+        _towerPlace.sortingOrder = orderInLayer;
+        _towerHead.sortingOrder = orderInLayer;
     }
 }
