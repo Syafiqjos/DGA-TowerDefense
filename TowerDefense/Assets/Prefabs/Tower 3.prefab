@@ -60,6 +60,10 @@ PrefabInstance:
       value: Tower 3
       objectReference: {fileID: 0}
     - target: {fileID: 4242533467044966431, guid: 56760d72d616c904f949f188151aeeb9, type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 2932212100990048324, guid: 8f1f83b04b9133142aa7245f520bbdd8, type: 3}
+    - target: {fileID: 4242533467044966431, guid: 56760d72d616c904f949f188151aeeb9, type: 3}
       propertyPath: _shootDistance
       value: 4
       objectReference: {fileID: 0}

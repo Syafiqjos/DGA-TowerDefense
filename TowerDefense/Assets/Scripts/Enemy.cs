@@ -65,4 +65,24 @@ public class Enemy : MonoBehaviour
     {
         CurrentPathIndex = currentIndex;
     }
+
+    public void ReduceEnemyHealth(int damage)
+
+    {
+
+        _currentHealth -= damage;
+
+        if (_currentHealth <= 0)
+
+        {
+
+            gameObject.SetActive(false);
+
+        }
+
+        Vector2 healthSize = _healthBar.size;
+        healthSize.x = (_currentHealth / (float)_maxHealth) * _healthBar.size.x;
+
+        _healthFill.size = healthSize;
+    }
 }

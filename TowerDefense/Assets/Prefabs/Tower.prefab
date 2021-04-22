@@ -187,6 +187,7 @@ MonoBehaviour:
   _shootDelay: 5
   _bulletSpeed: 4
   _bulletSplashRadius: 0
+  _bulletPrefab: {fileID: 2932212100990048324, guid: cb9baf61be2ae804d96ab6a5958ab486, type: 3}
 --- !u!61 &1963957919993893451
 BoxCollider2D:
   m_ObjectHideFlags: 0

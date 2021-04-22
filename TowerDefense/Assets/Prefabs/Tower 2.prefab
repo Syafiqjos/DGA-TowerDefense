@@ -64,6 +64,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4242533467044966431, guid: 56760d72d616c904f949f188151aeeb9, type: 3}
+      propertyPath: _bulletPrefab
+      value: 
+      objectReference: {fileID: 2932212100990048324, guid: cb9baf61be2ae804d96ab6a5958ab486, type: 3}
+    - target: {fileID: 4242533467044966431, guid: 56760d72d616c904f949f188151aeeb9, type: 3}
       propertyPath: _shootDistance
       value: 8
       objectReference: {fileID: 0}
