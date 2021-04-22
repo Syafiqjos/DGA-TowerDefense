@@ -23,6 +23,13 @@ public class Bullet : MonoBehaviour
     private void FixedUpdate()
 
     {
+        if (LevelManager.Instance.IsOver)
+
+        {
+
+            return;
+
+        }
 
         if (_targetEnemy != null)
 

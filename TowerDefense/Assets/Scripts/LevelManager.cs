@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -34,9 +36,15 @@ public class LevelManager : MonoBehaviour
 
     private float _runningSpawnDelay;
 
+    public bool IsOver { get; private set; }
+
     private void Start()
     {
         InstantiateAllTowerUI();
+
+        SetCurrentLives(_maxLives);
+
+        SetTotalEnemy(_totalEnemy);
     }
 
     // Menampilkan seluruh Tower yang tersedia pada UI Tower Selection
@@ -61,6 +69,24 @@ public class LevelManager : MonoBehaviour
     private void Update()
 
     {
+
+        if (Input.GetKeyDown(KeyCode.R))
+
+        {
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        }
+
+
+
+        if (IsOver)
+
+        {
+
+            return;
+
+        }
 
         // Counter untuk spawn enemy dalam jeda waktu yang ditentukan
 
@@ -119,6 +145,7 @@ public class LevelManager : MonoBehaviour
                 {
 
                     enemy.gameObject.SetActive(false);
+                    ReduceLives(1);
 
                 }
 
@@ -151,6 +178,27 @@ public class LevelManager : MonoBehaviour
     private void SpawnEnemy()
 
     {
+        SetTotalEnemy(--_enemyCounter);
+
+        if (_enemyCounter < 0)
+
+        {
+
+            bool isAllEnemyDestroyed = _spawnedEnemies.Find(e => e.gameObject.activeSelf) == null;
+
+            if (isAllEnemyDestroyed)
+
+            {
+
+                SetGameOver(true);
+
+            }
+
+
+
+            return;
+
+        }
 
         int randomIndex = Random.Range(0, _enemyPrefabs.Length);
 
@@ -286,4 +334,81 @@ public class LevelManager : MonoBehaviour
 
     }
 
+    [SerializeField] private int _maxLives = 3;
+
+    [SerializeField] private int _totalEnemy = 15;
+
+
+
+    [SerializeField] private GameObject _panel;
+
+    [SerializeField] private Text _statusInfo;
+
+    [SerializeField] private Text _livesInfo;
+
+    [SerializeField] private Text _totalEnemyInfo;
+
+    private int _currentLives;
+
+    private int _enemyCounter;
+
+    public void ReduceLives(int value)
+
+    {
+
+        SetCurrentLives(_currentLives - value);
+
+        if (_currentLives <= 0)
+
+        {
+
+            SetGameOver(false);
+
+        }
+
+    }
+
+
+
+    public void SetCurrentLives(int currentLives)
+
+    {
+
+        // Mathf.Max fungsi nya adalah mengambil angka terbesar
+
+        // sehingga _currentLives di sini tidak akan lebih kecil dari 0
+
+        _currentLives = Mathf.Max(currentLives, 0);
+
+        _livesInfo.text = $"Lives: {_currentLives}";
+
+    }
+
+
+
+    public void SetTotalEnemy(int totalEnemy)
+
+    {
+
+        _enemyCounter = totalEnemy;
+
+        _totalEnemyInfo.text = $"Total Enemy: {Mathf.Max(_enemyCounter, 0)}";
+
+    }
+
+
+
+    public void SetGameOver(bool isWin)
+
+    {
+
+        IsOver = true;
+
+
+
+        _statusInfo.text = isWin ? "You Win!" : "You Lose!";
+
+        _panel.gameObject.SetActive(true);
+
+    }
 }
